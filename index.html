@@ -1,107 +1,230 @@
 <!DOCTYPE html>
-<html lang="zh_CN">
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta http-equiv="Content-type" content="text/html;charset=utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <title>挪个车-自动拨打电话</title>
-        <style>
-            *{margin:0;padding:0;font-family:"PingFangSC-Regular","Microsoft YaHei", "微软雅黑", verdana, sans-serif, Simsun, STXihei;zoom:1;}
-            body{padding: 0 15px;background: #fafafa;}
-            .f-dn{display: none;}
-            .f-margin-top-5{margin-top: 5px;}
-            .bold{font-weight: bold;}
-            .title{text-align: center;font-size: 20px;height: 28px;line-height: 28px;margin-top: 35px;}
-            .title-info{margin-top: 5px;font-size: 15px;text-align: center;}
-            .qrcode-body{margin-top: 24px;border:1px solid #b9b9b9;background: #fff;padding:25px 15px;font-size: 16px;border-radius: 6px;}
-            .qrcode-body .step1 .step-title{color: #656565;margin-top: 0px;}
-            .qrcode-body .step-title{margin-top: 20px;margin-bottom: 10px;}
-            .qrcode-body .step p{font-size: 15px;line-height: 25px;}
-            .qrcode-footer{color: #656565;font-size: 15px;margin-top: 14px;}
-            .j-manaul{text-decoration: none;display: inline-block;border-radius: 6px;width: 110px;height: 26px;line-height: 26px;text-align: center;color: #3B78DD ;border:1px solid #3B78DD;margin-left: 5px;}
-            .f-manaul{text-decoration: none;display: inline-block;border-radius: 6px;width: 110px;height: 26px;line-height: 26px;text-align: center;color: #3B78DD ;border:1px solid #3B78DD;margin-left: 5px;}
-            .sms-body{margin-top: 35px;font-size: 15px;}
-            .sms-body .step-body{border:1px solid #B9B9B9;border-radius: 6px;background: #fff;margin: 8px 0;}
-            .sms-body .step-info{color: #656565;margin-bottom: 32px;}
-            .sms-body .step-body p{height: 42px;line-height: 42px;padding-left: 25px;}
-            .sms-body .step-body p span{font-weight: bold;}
-            .sms-body .step-body p:first-child{border-bottom: 1px solid #B9B9B9;}
-            .sms-body .step2 .step-body{padding:15px;line-height: 25px;}
-        </style>
-    </head>
-    <body>
-        <div class="qrcode">
-            <div class="title bold">无意挡路，还望理解</div>
-            <div class="title-info">临时停靠，请多关照</div>
-            <div align="center"><a class="title f-manaul">粤X WF888</a></div>
-            <div class="qrcode-body">
-                <div class="step step1">
-                    <div class="step-title">第一步：手机扫描二维码（已完成）</div>
-                    <p>我的爱车如果阻碍了您的车辆通过</p>
-                    <p>请扫描二维码联系我</p>
-                </div>
-                <div class="step step2">
-                    <div class="step-title bold">第二步：点击呼叫</div>
-                    <p>手机号码自动填充，无需手动输入，只需点击发送按钮即可</p>
-                    <p>电话费用由运营商收取</p>
-                </div>
-                <div class="step step3">
-                    <div class="step-title bold">第三步：呼叫成功</div>
-                    <p>非常抱歉，请耐心等待，车主正在速速赶往</p>
-                </div>
-            </div>
-            <div class="qrcode-footer">
-                <div>没有跳转到呼叫界面？<a href="javascript:location.reload();" class="f-manaul">点击重试</a></div>
-                <div class="f-margin-top-5">可尝试再次扫码或<a href="javascript:;" class="j-manaul">手动拨号</a></div>
-            </div>
-        </div>
-        <div class="sms f-dn">
-            <div class="title bold">挪个车-自动电话</div>
-            <div class="title-info">手动拨号说明</div>
-            <div class="sms-body">
-                <div class="step step1">
-                    <div class="step-title bold">第一步：输入号码</div>
-                    <div class="step-body">
-                        <p>输入号码：<span>13888888888</span></p>
-                    </div>
-                    <div class="step-info">通话费用由运营商收取</div>
-                </div>
-                <div class="step step2">
-                    <div class="step-title bold">第二步：点击呼叫</div>
-                    <div class="step-body">
-                        呼叫完成后，请耐心等待，车主正在速速赶往
-                    </div>
-                </div>   
-            </div>
-        </div>
-    </body>
-            <div class="qrcode-footer">
-                <div>电话没回应？发个短信试试：<a href="sms:13888888888?body=麻烦挪个车"class="f-manaul">点击发送</a>
-            </div>
-    <script type="text/javascript" src="static/js/jquery-1.8.1.min.js"></script>
-    <script>
-        $(function(){
- 
-            $('.j-manaul').click(function(){
-                $('.qrcode').hide();  
-                $('.sms').show();  
-            })
- 
-            $('.j-qrcode').click(function(){
-                $('.qrcode').show();  
-                $('.sms').hide();  
-            })
- 
-            var u = navigator.userAgent;
-            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;//判断是否是 android终端
-            var isUc = u.indexOf('UCBrowser') > -1; 
-            var  isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-            if(isIOS&&!isUc){
-                window.location.href = 'tel:13888888888';
-            }else if(isAndroid || isUc){
-                window.location.href = 'tel:13888888888'; 
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通知车主挪车</title>
+ <style>
+          * { box-sizing: border-box; margin: 0; padding: 0; }
+          :root {
+            --primary-color: #4776E6;
+            --secondary-color: #8E54E9;
+            --text-color: #2c3e50;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+          }
+          body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh; 
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            padding: 20px;
+            line-height: 1.6;
+          }
+          .container { 
+            text-align: center; 
+            padding: 40px 30px; 
+            width: 100%; 
+            max-width: 450px; 
+            border-radius: 24px; 
+            box-shadow: 0 10px 40px var(--shadow-color);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            transform: translateY(0);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+          .container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+          }
+          h1 { 
+            font-size: 32px; 
+            margin-bottom: 25px; 
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+          }
+          .car-icon {
+            font-size: 64px;
+            margin-bottom: 25px;
+            display: inline-block;
+            animation: float 6s ease-in-out infinite;
+          }
+          p { 
+            margin-bottom: 30px; 
+            font-size: 18px; 
+            color: #546e7a;
+            line-height: 1.8;
+          }
+          .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+          }
+          button { 
+            width: 100%; 
+            padding: 16px 24px; 
+            font-size: 18px; 
+            font-weight: 600; 
+            color: #fff; 
+            border: none; 
+            border-radius: 16px; 
+            cursor: pointer; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+          }
+          button:active {
+            transform: scale(0.98);
+          }
+          .notify-btn { 
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 15px rgba(71, 118, 230, 0.2);
+          }
+          .notify-btn:hover { 
+            box-shadow: 0 6px 20px rgba(71, 118, 230, 0.3);
+            transform: translateY(-2px);
+          }
+          .call-btn { 
+            background: linear-gradient(45deg, #00b09b, #96c93d);
+            box-shadow: 0 4px 15px rgba(0, 176, 155, 0.2);
+          }
+          .call-btn:hover { 
+            box-shadow: 0 6px 20px rgba(0, 176, 155, 0.3);
+            transform: translateY(-2px);
+          }
+          @keyframes float {
+            0% {
+              transform: translateY(0px) rotate(0deg);
             }
-        })
-    </script>
+            50% {
+              transform: translateY(-20px) rotate(5deg);
+            }
+            100% {
+              transform: translateY(0px) rotate(0deg);
+            }
+          }
+          .loading {
+            position: relative;
+            pointer-events: none;
+          }
+          .loading::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.8s linear infinite;
+            margin-left: 10px;
+          }
+          @keyframes spin {
+            to {
+              transform: rotate(360deg);
+            }
+          }
+          .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s;
+          }
+          .toast.show {
+            opacity: 1;
+          }
+        </style>
+</head>
+<body>
+<div class="container">
+    <div class="car-icon">&#128663;</div>
+        <h1>温馨提示</h1>
+        <p>不好意思阻碍到您的出行了<br>请通过以下方式联系我，我会立即前来挪车</p>
+    <div class="button-group">
+        <button class="notify-btn"><span>微信通知</span> &#128241;</button>
+        <button class="call-btn"><span>拨打电话</span> &#128222;</button>
+    </div>
+    <div id="toast" class="toast"></div>    
+</div>
  
-</html>
+<script>
+function showToast(message, duration = 3000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+              toast.classList.remove('show');
+            }, duration);
+          }
+           
+function notifyOwner() {
+    // 获取本地存储的次数
+    let notifyCount = localStorage.getItem('notifyCount') ? parseInt(localStorage.getItem('notifyCount')) : 0;
+    const maxCount = 3;
+    const timeLimit = 60 * 1000; // 1分钟
+ 
+    // 检查是否超过次数限制
+    if (notifyCount >= maxCount) {
+        showToast("您已经连续通知过3次了，请稍后再试。");
+        return;
+    }
+    // 弹出提示框获取用户输入
+    const userMessage = prompt("请输入需要通知的内容：", "您好，有人需要您挪车，请及时处理。");
+              
+    // 如果用户点击取消或没有输入内容，则返回
+    if (!userMessage) {
+                return;
+            }
+    fetch("https://wxpusher.zjiecode.com/api/send/message", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            appToken: "AT_******换成你的",
+            content: userMessage,  // 使用用户输入的内容
+            contentType: 1,
+            uids: ["UID_1*****换成你的","UID_2*****换成你的"]
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.code === 1000) {
+            showToast("通知已发送，车主很快就来！");
+            //alert("通知已发送！");
+            // 更新本地存储的次数
+            localStorage.setItem('notifyCount', notifyCount + 1);
+            // 设置时间限制
+            setTimeout(() => {
+                localStorage.setItem('notifyCount', 0);
+            }, timeLimit);
+        } else {
+            showToast("发送失败，请尝试电话联系");
+            //alert("通知发送失败，请稍后重试。");
+        }
+    })
+    .catch(error => {
+        console.error("Error sending notification:", error);
+        showToast("网络错误，请尝试电话联系");
+        //alert("通知发送出错，请检查网络连接。");
+    });
+}
+  
+function callOwner() {
+    window.location.href = "tel:*****换成你的";
+}
+</script>
+ 
+<!--到这里去申请TOKEN：[url]https://wxpusher.zjiecode.com/admin[/url]  -->
+<!--源码最底下的JS脚本，可以找个在线JS加密的给加下密，这样就可以防小白看到你的appToken了-->
+</body></html>
